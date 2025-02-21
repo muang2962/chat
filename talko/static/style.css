@@ -1,5 +1,12 @@
+@font-face {
+    font-family: 'SBAggroB';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 html, body {
-    font-family: Arial, sans-serif;
+    font-family: SBAggroB;
     background-color: #222;
     color: white;
     display: flex;
@@ -16,15 +23,18 @@ html, body {
 .container {
     width: 20%;
     background-color: #007bff00;
+    font-family: SBAggroB;
 }
 
 .contai {
     width: 90%;
+    font-family: SBAggroB;
 }
 
 .conta {
     width: 90%;
     margin-top: 10px;
+    font-family: SBAggroB;
 }
 
 .chat-container {
@@ -36,6 +46,7 @@ html, body {
     border-radius: 10px;
     padding: 10px;
     position: relative;
+    font-family: SBAggroB;
 }
 
 .exit-btn {
@@ -48,6 +59,7 @@ html, body {
     color: white;
     cursor: pointer;
     border-radius: 5px;
+    font-family: SBAggroB;
 }
 
 .chat-box {
@@ -61,6 +73,7 @@ html, body {
     padding: 10px;
     margin-bottom: 10px;
     text-align: left;
+    font-family: SBAggroB;
 }
 
 
@@ -71,11 +84,13 @@ html, body {
     border-radius: 5px;
     display: inline-block;
     max-width: 80%;
+    font-family: SBAggroB;
 }
 
 .input-container {
     display: flex;
     gap: 10px;
+    font-family: SBAggroB;
 }
 
 input {
@@ -83,6 +98,7 @@ input {
     padding: 10px;
     border: none;
     border-radius: 5px;
+    font-family: SBAggroB;
 }
 
 button {
@@ -92,6 +108,7 @@ button {
     color: white;
     border-radius: 5px;
     cursor: pointer;
+    font-family: SBAggroB;
 }
 
 .button1 {
@@ -101,7 +118,7 @@ button {
     color: white;
     border-radius: 5px;
     cursor: pointer;
-
     margin-top: 10px;
+    font-family: SBAggroB;
     
 }
