@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="1080×1080" href="{{ url_for('static', filename='logog.png') }}">
+    <title>Talko - 채팅방</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+</head>
+<body>
+    <div class="chat-container">
+        <button class="exit-btn" onclick="leaveRoom()">방 나가기</button>
+        <div class="chat-box" id="chat-box"></div>
+        <div class="input-container">
+            <input type="text" id="message" placeholder="메시지를 입력하세요">
+            <button onclick="sendMessage()">보내기</button>
+        </div>
+    </div>
+
+    <script>
+        var socket = io();
+        var name = "{{ name }}";
+        var room = "{{ room }}";
+
+        socket.emit("join", { name: name, room: room });
+
+        socket.on("joined", function(msg) {
+            var chatBox = document.getElementById("chat-box");
+            var messageElement = document.createElement("p");
+            messageElement.textContent = msg;
+            messageElement.style.color = "gray";
+            chatBox.appendChild(messageElement);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        });
+
+        socket.on("previous_messages", function(messages) {
+            var chatBox = document.getElementById("chat-box");
+            messages.forEach(function(msg) {
+                var messageElement = document.createElement("div");
+                messageElement.classList.add("message");
+
+                var nameElement = document.createElement("span");
+                nameElement.classList.add("name");
+                nameElement.textContent = msg.name + ": ";
+
+                var textElement = document.createElement("span");
+                textElement.classList.add("text");
+                textElement.textContent = msg.message;
+
+                messageElement.appendChild(nameElement);
+                messageElement.appendChild(textElement);
+
+                chatBox.appendChild(messageElement);
+            });
+            chatBox.scrollTop = chatBox.scrollHeight;
+        });
+
+        socket.on("message", function(msg) {
+            var chatBox = document.getElementById("chat-box");
+            var messageElement = document.createElement("div");
+            messageElement.classList.add("message");
+
+            var nameElement = document.createElement("span");
+            nameElement.classList.add("name");
+            nameElement.textContent = msg.name + ": ";
+
+            var textElement = document.createElement("span");
+            textElement.classList.add("text");
+            textElement.textContent = msg.message;
+
+            messageElement.appendChild(nameElement);
+            messageElement.appendChild(textElement);
+
+            chatBox.appendChild(messageElement);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        });
+
+        function sendMessage() {
+            var messageInput = document.getElementById("message");
+            var message = messageInput.value.trim();
+            if (message) {
+                socket.emit("message", { name: name, message: message, room: room });
+                messageInput.value = "";
+            }
+        }
+
+        document.getElementById("message").addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                sendMessage();
+            }
+        });
+
+        function leaveRoom() {
+            socket.emit("leave", { name: name, room: room });
+            window.location.href = "/"; // 메인 페이지로 이동
+        }
+    </script>    
+</body>
+</html>

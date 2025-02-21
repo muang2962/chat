@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talko - 익명 채팅</title>
+    <link rel="icon" type="image/png" sizes="1080×1080" href="{{ url_for('static', filename='logog.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>채팅방 선택</h2>
+        <form class="contai" action="/chat" method="POST">
+            <input class="conta" type="text" name="name" placeholder="Enter your name" required>
+            <input class="conta" type="text" name="room" placeholder="Enter room number" required>
+            <button class="button1" type="submit">Join</button>
+        </form>        
+    </div>
+</body>
+</html>

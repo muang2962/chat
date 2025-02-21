@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="1080×1080" href="{{ url_for('static', filename='logog.png') }}">
+    <title>Admin - 채팅방 관리</title>
+    <style>
+        body { background-color: #222; color: white; font-family: Arial, sans-serif; }
+        h2 { text-align: center; }
+        .container { width: 80%; margin: auto; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid white; padding: 10px; text-align: left; }
+        th { background: #333; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>채팅방 목록</h2>
+        <table>
+            <tr><th>ID</th><th>방 이름</th><th>사용자</th><th>생성 시간</th></tr>
+            {% for room in rooms %}
+            <tr><td>{{ room[0] }}</td><td>{{ room[1] }}</td><td>{{ room[2] }}</td><td>{{ room[3] }}</td></tr>
+            {% endfor %}
+        </table>
+
+        <h2>채팅 기록</h2>
+        <table>
+            <tr><th>ID</th><th>방 이름</th><th>사용자</th><th>메시지</th><th>시간</th></tr>
+            {% for msg in messages %}
+            <tr><td>{{ msg[0] }}</td><td>{{ msg[1] }}</td><td>{{ msg[2] }}</td><td>{{ msg[3] }}</td><td>{{ msg[4] }}</td></tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>
