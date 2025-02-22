@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from flask_socketio import SocketIO, join_room, leave_room, emit
+from flask import Flask, request, jsonify
 import sqlite3
 
 app = Flask(__name__)
@@ -152,5 +153,22 @@ def handle_leave(data):
     emit("message", {"name": "System", "message": f"{name}님이 나갔습니다."}, room=room)
     leave_room(room)
 
+@app.route("/send_message", methods=["POST"])
+def send_message():
+    data = request.json
+    name = data.get("name")
+    room = data.get("room")
+    message = data.get("message")
+
+    if not name or not room or not message:
+        return jsonify({"error": "Invalid data"}), 400
+
+    # 채팅 메시지를 해당 방에 전송
+    socketio.emit("message", {"name": name, "message": message}, room=room)
+
+    return jsonify({"status": "success"}), 200
+
+
 if __name__ == "__main__":
     socketio.run(app, host="0.0.0.0", debug=True)
+
